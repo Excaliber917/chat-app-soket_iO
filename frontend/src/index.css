@@ -1,0 +1,11 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+
+/* Override the scrollbar-color property */
+.custom-scrollbar {
+    scrollbar-width: thin !important; /* Optional: Control width in non-WebKit browsers */
+    scrollbar-color:  #555 !important; /* Thumb color Track color */
+}

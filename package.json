@@ -1,0 +1,32 @@
+{
+  "name": "chat-app-soket_io",
+  "version": "1.0.0",
+  "description": "this is a chat app using MERN with socket.io",
+  "main": "server.js",
+  "scripts": {
+    "server": "nodemon backend/server.js"
+  },
+  "type": "module",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Excaliber917/chat-app-soket_iO.git"
+  },
+  "author": "dj-ghosh",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Excaliber917/chat-app-soket_iO/issues"
+  },
+  "homepage": "https://github.com/Excaliber917/chat-app-soket_iO#readme",
+  "dependencies": {
+    "bcrypt": "^5.1.1",
+    "cookie-parser": "^1.4.6",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "jsonwebtoken": "^9.0.2",
+    "mongoose": "^8.5.2",
+    "socket.io": "^4.7.5"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.4"
+  }
+}

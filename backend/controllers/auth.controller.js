@@ -64,8 +64,10 @@ export const login = async (req, res) => {
         const user = await User.findOne({ userName })
         const isPasswordCorrect = await bcrypt.compare(password, user?.password || "")
         // console.log(isPasswordCorrect)
-        if (!user || !isPasswordCorrect)
-            return res.status(400).json("wrong")
+        if (!user || !isPasswordCorrect) {
+
+            return res.status(400).json({ error: "invalid login details" })
+        }
 
         genToken(user._id, res)
         return res.status(200).json({
@@ -79,8 +81,8 @@ export const login = async (req, res) => {
 
     }
     catch (error) {
-        console.log(err.message)
-        return res.status(404).json({ error: err.message })
+        // console.log(error.message)
+        return res.status(404).json({ error: error.message })
     }
 
     // return res.status(200).json({user})
@@ -91,11 +93,11 @@ export const login = async (req, res) => {
 
 export const logout = (req, res) => {
     try {
-        res.cookie("cookie","",{maxAge:0})
-        res.status(200).json({message:"loged out successfully"})
+        res.cookie("cookie", "", { maxAge: 0 })
+        res.status(200).json({ message: "loged out successfully" })
 
     } catch (error) {
-        console.log(err.message)
-        return res.status(404).json({ error: err.message })
+        console.log(error.message)
+        return res.status(404).json({ error: error.message })
     }
 }

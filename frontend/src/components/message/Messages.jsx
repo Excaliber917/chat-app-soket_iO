@@ -1,28 +1,33 @@
+import { useEffect, useRef } from "react"
+import useGetMessages from "../../hooks/useGetMessages"
 import Message from "./Message"
 
 
 function Messages() {
+  const { loading, messages } = useGetMessages()
+  const lastMsg = useRef()
+  useEffect(() => {
+
+    lastMsg.current?.scrollIntoView({ behavior: "smooth" });
+
+
+  }, [messages])
   return (
     <div className="px-4 flex-1 custom-scrollbar overflow-auto">
-      <Message/>
-      <Message/>
-      <Message/>
-      <Message/>
-      <Message/>
-      <Message/>
-      <Message/>
-      <Message/>
-      <Message/>
-      <Message/>
-      <Message/>
-      <Message/>
-      <Message/>
-      <Message/>
-      <Message/>
-      <Message/>
-      <Message/>
-      <Message/>
-     
+
+      {!loading && messages.length > 0 && messages.map((message) => (
+        <div key={message._id} ref={lastMsg}>
+          <Message message={message} />
+        </div>
+
+      ))}
+
+      {!loading && messages.length === 0 && (
+        <p className='text-center'>Send a message to start the conversation</p>
+      )}
+
+
+
     </div>
   )
 }

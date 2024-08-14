@@ -1,16 +1,28 @@
+import { useState } from "react";
 import { IoMdSend } from "react-icons/io";
+import useSendMessage from "../../hooks/useSendMessage";
 function MessageInput() {
+    const [message, setMessage] = useState("")
+    const { loading, sendMessage } = useSendMessage()
+    const handleSubmit = async (e) => {
+        e.preventDefault()
+        if (!message) return
+        sendMessage(message)
+        setMessage("")
+    }
     return (
-        <form className="px-2 my-3">
+        <form className="px-2 my-3" onSubmit={handleSubmit}>
             <div className="w-full relative">
                 <input
                     type="text"
                     placeholder="send a message"
                     className="border input text-sm rounded block w-full p-2.5
                     bg-gray-700 border-gray-600 text-white"
+                    value={message}
+                    onChange={(e) => setMessage(e.target.value)}
                 />
                 <button type="submit" className='absolute inset-y-0 end-0 flex items-center pe-3'>
-                   <IoMdSend/>
+                    <IoMdSend />
                 </button>
 
             </div>

@@ -52,7 +52,7 @@ export const getMessage = async(req, res) => {
             participants:{$all:[senderId,userToChatId]}
         }).populate("message") //the complete message
 
-        res.status(200).json(conversion.message)
+        res.status(200).json(conversion?.message)
 
 
     } catch(error) {

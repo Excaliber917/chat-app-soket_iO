@@ -1,17 +1,24 @@
+import useConversasion from "../zustand/useConversasion"
 
-function ConversionItem() {
+function ConversionItem({ convo }) {
+    const { selectedConversasion, setSelectedConversasion } = useConversasion()
+
+    const isSelected = selectedConversasion?._id === convo._id
     return (
+
         <>
-            <div className="flex gap-2 items-center hover:bg-success rounded p-2 py-1 cursor-pointer">
+            <div onClick={() => setSelectedConversasion(convo)} className={`flex gap-2 items-center hover:bg-success rounded p-2 py-1 cursor-pointer
+                ${isSelected ? 'bg-success' : ""}`
+            }>
                 <div className="avatar online">
                     <div className="w-12 rounded-full">
-                        <img src='https://cdn.iconfinder.com/data/icons/communication-line-10/24/account_profile_user_contact_person_avatar_placeholder-512.png' alt='user avatar' />
+                        <img src={convo.profilePic} alt='user avatar' />
                     </div>
                 </div>
                 <div className="flex flex-col flex-1">
                     <div className="flex gap-3 justify-between">
-                        <p className="font-semibold text-gray-300">Dj ghosh</p>
-                        <span className="text-xl">0</span>
+                        <p className="font-semibold text-gray-300">{convo.userName}</p>
+
 
                     </div>
 
@@ -19,7 +26,7 @@ function ConversionItem() {
 
 
             </div>
-            <div className="divider my-0 py-0 h-1"/>
+            <div className="divider my-0 py-0 h-1" />
 
         </>
     )

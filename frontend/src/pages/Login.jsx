@@ -1,12 +1,25 @@
-import  { useState } from "react";
+import { useState } from "react";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
+import { Link } from "react-router-dom";
+import useLogin from "../hooks/useLogin";
 
 const Login = () => {
+    const [logInDetails, setLogInDetails] = useState({
+        userName: "",
+        password: ""
+    })
     const [passwordVisible, setPasswordVisible] = useState(false);
-
+    const { loading, login } = useLogin()
     const togglePasswordVisibility = () => {
         setPasswordVisible(!passwordVisible);
     };
+
+
+    const handleSubmit = async (e) => {
+        e.preventDefault()
+        // console.log(logInDetails)
+        login(logInDetails)
+    }
 
     return (
         <div className='flex flex-col items-center justify-center min-w-96 mx-auto'>
@@ -15,7 +28,7 @@ const Login = () => {
                     Login
                     <span> ChatApp</span>
                 </h1>
-                <form>
+                <form onSubmit={handleSubmit}>
                     <div>
                         <label className="label p-2">
                             <span className="label-text text-base">Username</span>
@@ -24,6 +37,8 @@ const Login = () => {
                             type="text"
                             placeholder="enter username"
                             className="w-full input input-bordered h-10"
+                            value={logInDetails.userName}
+                            onChange={(e) => setLogInDetails({ ...logInDetails, userName: e.target.value })}
                         />
                     </div>
                     <div>
@@ -35,6 +50,8 @@ const Login = () => {
                                 type={passwordVisible ? "text" : "password"}
                                 placeholder="enter password"
                                 className="w-full input input-bordered h-10 pr-10"
+                                value={logInDetails.password}
+                                onChange={(e) => setLogInDetails({ ...logInDetails, password: e.target.value })}
                             />
                             <button
                                 type="button"
@@ -44,13 +61,15 @@ const Login = () => {
                                 {passwordVisible ? <FaEyeSlash /> : <FaEye />}
                             </button>
                         </div>
-                        <div>
-                            <button className="btn btn-block btn-sm mt-2">Login</button>
-                            <a href="" className="text-sm hover:text-success hover:underline mt-2">Dont have an account ? sign up now</a>
-                        </div>
 
 
                     </div>
+                    <div>
+                        {loading ? <div className='loading loading-spinner'></div> : <button type="submit" className="btn btn-block btn-sm mt-2">Login</button>}
+
+                        <Link to="/signup" className="text-sm hover:text-success hover:underline mt-2">Dont have an account ? sign up now</Link>
+                    </div>
+
                 </form>
             </div>
         </div>

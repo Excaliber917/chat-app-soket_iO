@@ -5,7 +5,8 @@ import authRouter from './routes/auth.route.js'
 import { connectDb } from './db/connectDb.js'
 import messageRouter from './routes/messages.route.js'
 import userRoute from './routes/user.route.js'
-const app = express()
+import { app, server } from './socket/socket.js'
+// const app = express()
 dotenv.config()
 const PORT  = process.env.PORT ||6173
 
@@ -18,7 +19,7 @@ app.use('/api/users',userRoute)
 
 
 
-app.listen(PORT , ()=>{
+server.listen(PORT , ()=>{
     connectDb()
     console.log(`server running on ${PORT}`)
 })
